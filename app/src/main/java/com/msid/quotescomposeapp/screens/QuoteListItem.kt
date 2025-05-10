@@ -38,11 +38,11 @@ import com.msid.quotescomposeapp.models.Quote
 
 
 @Composable
-fun QuoteListItem(quote: Quote, onClick:()->Unit) {
+fun QuoteListItem(quote: Quote, onClick:(quote:Quote)->Unit) {
     Card(
         elevation = CardDefaults.cardElevation(4.dp),
         modifier = Modifier
-            .clickable { onClick() }
+            .clickable { onClick(quote) }
             .padding(8.dp)
     ) {
 
@@ -62,7 +62,7 @@ fun QuoteListItem(quote: Quote, onClick:()->Unit) {
             Spacer(modifier = Modifier.padding(4.dp))
             Column(modifier = Modifier.weight(1f)) {
                 Text(
-                    text = quote.text,
+                    text = quote.text.ifBlank { "No quote available" },
                     fontFamily = FontFamily(
                         Font(R.font.montserrat_regular)),
                     style = MaterialTheme.typography.bodyMedium,
@@ -77,7 +77,7 @@ fun QuoteListItem(quote: Quote, onClick:()->Unit) {
                         .height(1.dp)
                 )
                 Text(
-                    text = quote.author,
+                    text = quote.author.ifBlank { "Unknown" },
                     style = MaterialTheme.typography.bodyMedium,
                     fontWeight = FontWeight.Normal,
                     modifier = Modifier.padding(top=4.dp)

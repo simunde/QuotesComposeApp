@@ -1,6 +1,7 @@
 package com.msid.quotescomposeapp
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -26,8 +27,8 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         CoroutineScope(Dispatchers.IO).launch{
-            delay(10000)
             DataManager.loadAssetsFromFile(applicationContext)
+
         }
         enableEdgeToEdge()
         setContent {
@@ -39,8 +40,14 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun App() {
     if (DataManager.isDataLoaded.value){
+        if (DataManager.currentPage.value == Pages.LISTING){
+            QuoteListScreen(DataManager.data) {
+                DataManager.switchPages(it)
+            }
+        } else{
+            DataManager.currentQuote?.let { QuoteDetail(quote = it) }
+        }
 
-        QuoteListScreen(DataManager.data) { }
     } else{
         Box(
             contentAlignment = Alignment.Center,
@@ -49,5 +56,10 @@ fun App() {
             Text(text = "Loading...", style = MaterialTheme.typography.headlineMedium)
         }
     }
+}
+
+enum class Pages{
+    LISTING,
+    DETAILS
 }
 

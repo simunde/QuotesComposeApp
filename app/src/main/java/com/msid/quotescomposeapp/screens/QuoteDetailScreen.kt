@@ -1,13 +1,17 @@
 package com.msid.quotescomposeapp.screens
 
+import android.telecom.Call.Details
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.FormatQuote
 import androidx.compose.material3.Card
@@ -24,12 +28,17 @@ import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.msid.quotescomposeapp.DataManager
 import com.msid.quotescomposeapp.R
 import com.msid.quotescomposeapp.models.Quote
 
 
 @Composable
 fun QuoteDetail(quote: Quote) {
+
+    BackHandler {
+        DataManager.switchPages(quote)
+    }
     Box(
         contentAlignment = Alignment.Center,
         modifier = Modifier
@@ -45,6 +54,8 @@ fun QuoteDetail(quote: Quote) {
         Card(
             elevation = CardDefaults.cardElevation(4.dp),
             modifier = Modifier.padding(32.dp)
+                .width(300.dp)         // fixed width
+                .height(250.dp)
         ) {
 
             Column(
