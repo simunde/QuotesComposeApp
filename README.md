@@ -18,7 +18,7 @@
 
 ## 📱 Screenshots
 
-<img src="images/list.png" alt="Quote List" width="300"/> <img src="images/detail.png" alt="Quote Detail" width="300"/>
+<img src="images/quotelist.png" alt="Quote List" width="300"/> <img src="images/detail.png" alt="Quote Detail" width="300"/>
 
 ---
 
